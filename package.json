@@ -1,5 +1,5 @@
 {
-  "name": "splasherest-app",
+  "name": "pexelrest-app",
   "version": "1.0.0",
   "description": "A royalty free image search engine with Pexels API",
   "default": "index.html",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PabloHFR/splasherest-app.git"
+    "url": "git+https://github.com/PabloHFR/pexelrest-app.git"
   },
   "author": "Pablo H. F. Roscoche",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/PabloHFR/splasherest-app/issues"
+    "url": "https://github.com/PabloHFR/pexelrest-app/issues"
   },
-  "homepage": "https://github.com/PabloHFR/splasherest-app#readme",
+  "homepage": "https://github.com/PabloHFR/pexelrest-app#readme",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.1",
     "parcel": "^2.8.1",
