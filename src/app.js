@@ -31,6 +31,8 @@ async function getCuratedPhotos() {
 }
 
 async function searchPhotos(query) {
+  clearImages();
+
   const dataFetch = await fetch(
     `https://api.pexels.com/v1/search?query=${query}&per_page=20&size=medium`,
     {
@@ -56,6 +58,11 @@ async function searchPhotos(query) {
 
 function updateInput(query) {
   searchPhotos(query);
+}
+
+function clearImages() {
+  galleryElement.innerHTML = "";
+  searchInputElement.value = "";
 }
 
 getCuratedPhotos();
