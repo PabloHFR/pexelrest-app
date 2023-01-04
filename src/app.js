@@ -1,22 +1,22 @@
 const AUTH = "563492ad6f9170000100000156af9ae065434075b1f1bd9d0fc2de9d";
+let URL = "https://api.pexels.com/v1/curated?per_page=15&page=1&size=small";
+
 const galleryElement = document.querySelector(".gallery");
 const searchFormElement = document.querySelector(".header__search-form");
 const searchInputElement = document.querySelector(".search-form__search-input");
 const searchButtonElement = document.querySelector(".header__search-btn");
 
-let searchValue;
+let page = 1;
+let currentSearch;
 
 async function getCuratedPhotos() {
-  const dataFetch = await fetch(
-    "https://api.pexels.com/v1/curated?per_page=30",
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: AUTH,
-      },
-    }
-  );
+  const dataFetch = await fetch(URL, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: AUTH,
+    },
+  });
 
   const data = await dataFetch.json();
   data.photos.forEach((photo) => {
@@ -26,23 +26,21 @@ async function getCuratedPhotos() {
     </div>
     `;
 
-    galleryElement.insertAdjacentHTML("afterbegin", markup);
+    galleryElement.insertAdjacentHTML("beforeend", markup);
   });
 }
 
 async function searchPhotos(query) {
   clearImages();
+  URL = `https://api.pexels.com/v1/search?query=${query}&per_page=15&size=small`;
 
-  const dataFetch = await fetch(
-    `https://api.pexels.com/v1/search?query=${query}&per_page=20&size=medium`,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: AUTH,
-      },
-    }
-  );
+  const dataFetch = await fetch(URL, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: AUTH,
+    },
+  });
 
   const data = await dataFetch.json();
   data.photos.forEach((photo) => {
@@ -52,7 +50,35 @@ async function searchPhotos(query) {
     </div>
     `;
 
-    galleryElement.insertAdjacentHTML("afterbegin", markup);
+    galleryElement.insertAdjacentHTML("beforeend", markup);
+  });
+}
+
+async function loadMore() {
+  page++;
+  if (currentSearch) {
+    URL = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=20&page=${page}&size=small`;
+  } else {
+    URL = `https://api.pexels.com/v1/curated?per_page=15&page=${page}&size=medium`;
+  }
+
+  const dataFetch = await fetch(URL, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: AUTH,
+    },
+  });
+
+  const data = await dataFetch.json();
+  data.photos.forEach((photo) => {
+    const markup = `
+    <div class="gallery-img">
+    <img src="${photo.src.large}"></img>
+    </div>
+    `;
+
+    galleryElement.insertAdjacentHTML("beforeend", markup);
   });
 }
 
@@ -69,5 +95,15 @@ getCuratedPhotos();
 
 searchFormElement.addEventListener("submit", (e) => {
   e.preventDefault();
+  currentSearch = searchInputElement.value;
   updateInput(searchInputElement.value);
+});
+
+window.addEventListener("scroll", () => {
+  if (
+    window.scrollY + window.innerHeight >=
+    document.documentElement.scrollHeight
+  ) {
+    loadMore();
+  }
 });
