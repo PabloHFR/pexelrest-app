@@ -21,9 +21,5 @@
     "@parcel/transformer-sass": "^2.8.1",
     "parcel": "^2.8.1",
     "sass": "^1.56.2"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.6",
-    "bootstrap": "^5.2.3"
   }
 }
