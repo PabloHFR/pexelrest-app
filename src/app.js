@@ -1,5 +1,5 @@
 const AUTH = "563492ad6f9170000100000156af9ae065434075b1f1bd9d0fc2de9d";
-let URL = "https://api.pexels.com/v1/curated?per_page=15&page=1&size=small";
+let URL = "https://api.pexels.com/v1/curated?per_page=15&page=1&size=medium";
 
 const galleryElement = document.querySelector(".gallery");
 const searchFormElement = document.querySelector(".header__search-form");
@@ -32,7 +32,7 @@ async function getCuratedPhotos() {
 
 async function searchPhotos(query) {
   clearImages();
-  URL = `https://api.pexels.com/v1/search?query=${query}&per_page=15&size=small`;
+  URL = `https://api.pexels.com/v1/search?query=${query}&per_page=15&size=medium`;
 
   const dataFetch = await fetch(URL, {
     method: "GET",
@@ -57,7 +57,7 @@ async function searchPhotos(query) {
 async function loadMore() {
   page++;
   if (currentSearch) {
-    URL = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=20&page=${page}&size=small`;
+    URL = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=20&page=${page}&size=medium`;
   } else {
     URL = `https://api.pexels.com/v1/curated?per_page=15&page=${page}&size=medium`;
   }
