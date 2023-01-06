@@ -9,7 +9,7 @@ const searchButtonElement = document.querySelector(".header__search-btn");
 let page = 1;
 let currentSearch;
 
-async function getCuratedPhotos() {
+async function getApiImages(URL) {
   const dataFetch = await fetch(URL, {
     method: "GET",
     headers: {
@@ -18,8 +18,12 @@ async function getCuratedPhotos() {
     },
   });
 
-  const data = await dataFetch.json();
-  data.photos.forEach((photo) => {
+  const data = dataFetch.json();
+  return data;
+}
+
+function displayImages(imagesObject) {
+  imagesObject.photos.forEach((photo) => {
     const markup = `
     <div class="gallery-img">
     <a target="_blank" href="${photo.src.large}">
@@ -32,30 +36,17 @@ async function getCuratedPhotos() {
   });
 }
 
+async function getCuratedPhotos() {
+  const imagesObject = await getApiImages(URL);
+  displayImages(imagesObject);
+}
+
 async function searchPhotos(query) {
   clearImages();
   URL = `https://api.pexels.com/v1/search?query=${query}&per_page=15&size=medium`;
 
-  const dataFetch = await fetch(URL, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      Authorization: AUTH,
-    },
-  });
-
-  const data = await dataFetch.json();
-  data.photos.forEach((photo) => {
-    const markup = `
-    <div class="gallery-img">
-    <a target="_blank" href="${photo.src.large}">
-      <img src="${photo.src.large}"></img> 
-    </a> 
-    </div>
-    `;
-
-    galleryElement.insertAdjacentHTML("beforeend", markup);
-  });
+  const imagesObject = await getApiImages(URL);
+  displayImages(imagesObject);
 }
 
 async function loadMore() {
@@ -66,26 +57,8 @@ async function loadMore() {
     URL = `https://api.pexels.com/v1/curated?per_page=15&page=${page}&size=medium`;
   }
 
-  const dataFetch = await fetch(URL, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      Authorization: AUTH,
-    },
-  });
-
-  const data = await dataFetch.json();
-  data.photos.forEach((photo) => {
-    const markup = `
-    <div class="gallery-img">
-    <a target="_blank" href="${photo.src.large}">
-      <img src="${photo.src.large}"></img> 
-    </a>
-    </div>
-    `;
-
-    galleryElement.insertAdjacentHTML("beforeend", markup);
-  });
+  const imagesObject = await getApiImages(URL);
+  displayImages(imagesObject);
 }
 
 function updateInput(query) {
