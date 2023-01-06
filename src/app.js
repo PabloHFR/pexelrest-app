@@ -12,7 +12,16 @@ getCuratedPhotos();
 searchFormElement.addEventListener("submit", (e) => {
   e.preventDefault();
   currentSearch = searchInputElement.value;
-  updateInput(searchInputElement.value);
+  if (currentSearch) {
+    updateInput(searchInputElement.value);
+  }
+});
+
+searchButtonElement.addEventListener("click", (e) => {
+  currentSearch = searchInputElement.value;
+  if (currentSearch) {
+    updateInput(searchInputElement.value);
+  }
 });
 
 window.addEventListener("scroll", () => {
