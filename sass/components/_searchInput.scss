@@ -1,0 +1,12 @@
+.search-form__search-input {
+  font-size: 1.5rem;
+  padding: 0.5rem 2rem;
+  width: 100%;
+  border: 1px solid $color-lighter-gray;
+  background-color: $color-even-lighter-gray;
+  border-radius: 50px;
+
+  &:hover {
+    background-color: $color-white;
+  }
+}
