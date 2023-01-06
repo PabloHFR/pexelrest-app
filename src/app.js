@@ -22,7 +22,9 @@ async function getCuratedPhotos() {
   data.photos.forEach((photo) => {
     const markup = `
     <div class="gallery-img">
-    <img src="${photo.src.large}"></img>
+    <a target="_blank" href="${photo.src.large}">
+      <img src="${photo.src.large}"></img> 
+    </a>
     </div>
     `;
 
@@ -46,7 +48,9 @@ async function searchPhotos(query) {
   data.photos.forEach((photo) => {
     const markup = `
     <div class="gallery-img">
-    <img src="${photo.src.large}"></img>
+    <a target="_blank" href="${photo.src.large}">
+      <img src="${photo.src.large}"></img> 
+    </a> 
     </div>
     `;
 
@@ -74,7 +78,9 @@ async function loadMore() {
   data.photos.forEach((photo) => {
     const markup = `
     <div class="gallery-img">
-    <img src="${photo.src.large}"></img>
+    <a target="_blank" href="${photo.src.large}">
+      <img src="${photo.src.large}"></img> 
+    </a>
     </div>
     `;
 
