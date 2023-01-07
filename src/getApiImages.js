@@ -9,6 +9,6 @@ export async function getApiImages(URL) {
     },
   });
 
-  const data = dataFetch.json();
+  const data = await dataFetch.json();
   return data;
 }
